@@ -20,3 +20,7 @@ deal_same_vin.sql
 decrypt.ts
 digestFetch.ts
 download.ts
+encrypt.ts
+focusElement.ts
+format_name.rs
+generateCsv.ts

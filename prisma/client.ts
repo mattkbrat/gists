@@ -2,12 +2,6 @@ import { PrismaClient as AuthPrismaClient } from "@prisma/auth";
 import { PrismaClient as ClientPrismaClient } from "@prisma/client";
 import { isDev } from "./isDev";
 
-const getTransaction = () => {
-	return prisma.$transaction(async (cx) => cx);
-};
-
-export type DbTransaction = AsyncReturnType<typeof getTransaction>;
-
 export const getPrismaClient = <T>(
 	client: new (q?: { log: ["query"] }) => T,
 	name: string,

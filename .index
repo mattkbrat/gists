@@ -15,3 +15,8 @@ checkDocsDir.ts
 classList.ts
 clickElement.ts
 console.js
+crypto.test.ts
+deal_same_vin.sql
+decrypt.ts
+digestFetch.ts
+download.ts

@@ -36,3 +36,7 @@ prisma.ts
 qotd-image-+server.ts
 qotd-+server.ts
 recovery.go
+schema.prisma
+sendSms.ts
+session.ts
+smpp.ts

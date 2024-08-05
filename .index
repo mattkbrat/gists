@@ -6,3 +6,4 @@ BreadcrumbWrapper.tsx
 
 prisma
 AsyncReturn.ts
+all_deals_info.sql

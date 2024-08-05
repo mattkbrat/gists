@@ -7,3 +7,7 @@ BreadcrumbWrapper.tsx
 prisma
 AsyncReturn.ts
 all_deals_info.sql
+amazonGamesClaim.js
+arctic_entra.ts
+auth_ddl.sql
+blocks.rs

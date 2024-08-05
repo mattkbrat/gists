@@ -44,3 +44,7 @@ string_to_title.rs
 submitTicket.ts
 toHHMMSS.ts
 unsplash.d.ts
+Unsplash.svelte
+validateEmail.ts
+valid.ts
+Youtube Subs to OPML.js

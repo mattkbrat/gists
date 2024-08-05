@@ -2,12 +2,6 @@ import { PrismaClient as AuthPrismaClient } from "@prisma/auth";
 import { PrismaClient as ClientPrismaClient } from "@prisma/client";
 import { isDev } from "./isDev";
 
-type AsyncReturnType<T extends (...args: any) => Promise<any>> = T extends (
-	...args: any
-) => Promise<infer R>
-	? R
-	: any;
-
 const getTransaction = () => {
 	return prisma.$transaction(async (cx) => cx);
 };

@@ -24,3 +24,7 @@ encrypt.ts
 focusElement.ts
 format_name.rs
 generateCsv.ts
+getElement.ts
+guessing-game.rs
+HowToDeleteAllCloudflareRecors.md
+index.ts

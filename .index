@@ -1,6 +1,7 @@
 renderImageInput.ts
 SubmitButton.tsx
-prisma.ts
+
 Breadcrumbs.tsx
 BreadcrumbWrapper.tsx
 
+prisma

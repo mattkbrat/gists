@@ -11,3 +11,7 @@ amazonGamesClaim.js
 arctic_entra.ts
 auth_ddl.sql
 blocks.rs
+checkDocsDir.ts
+classList.ts
+clickElement.ts
+console.js

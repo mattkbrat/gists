@@ -60,3 +60,4 @@ colorMapper.ts
 hexIsDark.ts
 insertIntoTextArea.ts
 nearestNum.ts
+ArrayElement.ts

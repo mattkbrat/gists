@@ -65,3 +65,4 @@ notEmpty.ts
 ObjectAccordion.tsx
 printDomElement.ts
 sendPushoverMessage.ts
+formatCurrency.ts

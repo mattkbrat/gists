@@ -58,3 +58,4 @@ objectByString.ts
 checkUndefined.ts
 colorMapper.ts
 hexIsDark.ts
+insertIntoTextArea.ts

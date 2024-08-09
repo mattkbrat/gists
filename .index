@@ -56,3 +56,4 @@ ProfileIdSection.tsx
 README.md
 objectByString.ts
 checkUndefined.ts
+colorMapper.ts

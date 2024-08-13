@@ -14,7 +14,7 @@ blocks.rs
 checkDocsDir.ts
 classList.ts
 clickElement.ts
-console.js
+deleteAllCloudflareDnsRecordsForDomain.js
 crypto.test.ts
 deal_same_vin.sql
 decrypt.ts

@@ -67,3 +67,4 @@ printDomElement.ts
 sendPushoverMessage.ts
 formatCurrency.ts
 fuzzy
+FullScreen.tsx

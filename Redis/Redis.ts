@@ -35,6 +35,7 @@ type RedisParams = {
 	method?: RedisMethod;
 	expire?: number;
 	db?: number;
+	key?: string;
 };
 
 export default class Redis {
@@ -46,10 +47,9 @@ export default class Redis {
 	private client: any; // TODO: Find the right type
 
 	setValues(p: RedisParams) {
-		this.value = p.value;
-		this.method = p.method;
-		this.expire = p.expire;
-		this.db = p.db;
+		for (const [k, v] of Object.entries(p)) {
+			this[k] = v;
+		}
 		if (!this.client) {
 			const url = getUrl(p.db || 0);
 			this.client = createClient({

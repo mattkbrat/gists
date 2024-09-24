@@ -1,0 +1,69 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-size: 20px;
+}
+
+body {
+
+  --root-bg: #1A1F2B;
+
+  @apply dark:bg-[var(--root-bg)] dark:text-white;
+  @apply sm:px-10 sm:py-8 flex flex-col min-h-screen;
+}
+
+body > * {
+  @apply: mx-8;
+}
+
+@layer components {
+  .input {
+
+    @apply dark:outline dark:outline-slate-50/80 dark:outline-1 dark:bg-[var(--root-bg)] p-2 dark:text-white focus:outline-purple-200 ;
+
+    &:-webkit-autofill {
+      box-shadow: 0 0 0 30px #1c1c1d inset;
+      bg: #1c1c1d
+    }
+
+    &:-webkit-autofill:hover {
+      box-shadow: 0 0 0 30px #1c1c1d inset;
+      bg: #1c1c1d
+    }
+
+    &:-webkit-autofill:focus {
+      box-shadow: 0 0 0 30px #1c1c1d inset;
+      bg: #1c1c1d
+    }
+
+    &:-webkit-autofill:active {
+      box-shadow: 0 0 0 30px #1c1c1d inset;
+      bg: #1c1c1d
+    }
+  }
+
+
+  .button {
+    @apply dark:bg-[var(--root-bg)] px-4 py-2 outline-purple-200 outline-1 dark:hover:bg-slate-500 dark:text-white ;
+    /* @apply dark:bg-[var(--root-bg)] px-4 py-2 outline outline-purple-200 dark:hover:bg-black dark:text-white cursor-pointer; */
+  }
+
+  .button:not(.input-group button) {
+    @apply hover:mx-1 transition-all;
+  }
+
+  .input-group {
+    @apply flex flex-row focus-within:outline-purple-200 !p-0; 
+  }
+
+  .input-group > button {
+    @apply !py-0;
+  }
+
+  .input-group > input {
+    @apply flex-1 focus:outline-none bg-transparent p-2; 
+  }
+}

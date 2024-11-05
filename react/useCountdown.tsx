@@ -19,7 +19,7 @@ const useCountdown = (timeRemaining: number) => {
 	const [elapsed, setElapsed] = useState(0);
 
 	const remaining = useMemo(() => {
-		return timeRemaining - elapsed;
+		return Math.max(0, timeRemaining - elapsed);
 	}, [elapsed, timeRemaining]);
 
 	useEffect(() => {
@@ -41,7 +41,7 @@ const useCountdown = (timeRemaining: number) => {
 		if (remaining > 0 || !id) return;
 
 		handleClear(id.current);
-	});
+	}, [remaining]);
 
 	const formattedTime = useMemo(() => {
 		return formatTime(remaining);

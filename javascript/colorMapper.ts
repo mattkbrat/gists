@@ -3,7 +3,7 @@
  * The more 0s, the redder the color.
  * The more 1s, the greener the color.
  * If all green, return green.
- * @param intArr
+ *
  * @returns hsla color
  */
 export const colorMapper = (intArr: number[]) => {

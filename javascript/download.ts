@@ -26,6 +26,13 @@ function createFileFromString({
 	navigator.clipboard.writeText(mySmartTextarea.value);
 }
 
+/**
+ * @example
+ *		download({
+ *			url: URL.createObjectURL(b64toBlob(result.data as string, "image/jpeg")),
+ *			filename: `${host}-${new Date().toISOString()}.jpg`,
+ *		});
+ */
 export async function download({
 	url,
 	filename,

@@ -1,0 +1,22 @@
+{
+  "name": "fetch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "base-64": "^1.0.0",
+    "cacheable-lookup": "^7.0.0",
+    "md5": "^2.3.0",
+    "undici": "^6.21.0"
+  },
+  "devDependencies": {
+    "@types/base-64": "^1.0.2",
+    "@types/md5": "^2.3.5"
+  }
+}

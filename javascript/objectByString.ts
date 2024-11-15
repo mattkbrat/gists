@@ -1,9 +1,9 @@
-type AnyObj = { [key: string]: unknown | AnyObj };
+import { AnyObj } from "./types/AnyObject";
 
 /**
  * With pure JavaScript, access an object's data multiple layers deep.
  */
-const objectByString = (o: AnyObj, s: string) => {
+export const objectByString = (o: AnyObj, s: string) => {
 	// convert indexes to properties and strip leading dot
 	s = s.replace(/\[(\w+)]/g, ".$1");
 	s = s.replace(/^\./, "");

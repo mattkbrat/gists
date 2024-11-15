@@ -4,20 +4,18 @@
 //  |  and import issues with digest-fetch. Able to ignore cert issues with the help of undici.
 /// !-----------------------------------------------------------------------------------------------------------
 
-import type { HTTP_METHOD } from "next/dist/server/web/http";
+import type { AnyObject } from "../types/AnyObject";
+// import type { HTTP_METHOD } from "next/dist/server/web/http";
 import base64 from "base-64";
 import md5 from "md5";
-
+import { handleFetch, type RequestBody } from "./undiciFetcher";
+import type { Dispatcher } from "undici";
+// import type { HttpHeaders } from "@elastic/elasticsearch/lib/api/types";
 type Headers = Request["headers"] & { Authorization: unknown };
 
 const algorithm = "MD5";
-const localDispatcher = new Agent({
-	connect: {
-		rejectUnauthorized: false,
-		requestCert: false,
-	},
-});
-const defaultDispatcher = new Agent();
+
+type HTTP_METHOD = "GET" | "POST" | "OPTIONS" | "PUT";
 
 type AuthOptions = {
 	method?: HTTP_METHOD;
@@ -25,7 +23,6 @@ type AuthOptions = {
 	factory?: () => AnyObject;
 };
 
-import { Agent, fetch as undiciFetch } from "undici";
 const parse = (raw: string, field: string, trim = true) => {
 	const regex = new RegExp(`${field}=("[^"]*"|[^,]*)`, "i");
 	const match = regex.exec(raw);
@@ -33,9 +30,6 @@ const parse = (raw: string, field: string, trim = true) => {
 	if (match) return trim ? match[1].replace(/[\s"]/g, "") : match[1];
 	return null;
 };
-
-// biome-ignore lint/suspicious/noExplicitAny: This is fine.
-type AnyObject = { [key: string]: any | AnyObject };
 
 /**
  * DigestClient is a wrapper of undici's fetch to provide http digest authentication boostraping.
@@ -84,24 +78,41 @@ export default class DigestClient {
 	async fetch(
 		url: string,
 		options: AuthOptions = {},
-		body?: BodyInit,
+		body?: RequestBody,
+		dispatcher?: Dispatcher,
+		headers?: HttpHeaders,
 		localServer = true,
 	) {
-		const resp = await undiciFetch(url, {
+		const resp = await handleFetch(url, {
 			...(this.basic ? this.addBasicAuth(options) : this.addAuth(url, options)),
 			body,
-			dispatcher: localServer ? localDispatcher : defaultDispatcher,
+			localServer,
+			fetchAsReadable: url.includes("?mode=text"),
+			dispatcher,
+			headers,
+		}).catch((e) => {
+			console.error("Failed to fetch", e);
 		});
+
+		if (!resp) return;
+
 		if (this.basic) {
 			return resp;
 		}
 
+		const hasStatusCode = "statusCode" in resp;
+		const status = hasStatusCode ? resp.statusCode : resp.status;
+		const auth =
+			(hasStatusCode
+				? resp.headers["www-authenticate"]
+				: resp.headers.get("www-authenticate")) || null;
+
 		if (
-			resp.status === 401 ||
-			(resp.status === this.statusCode && this.statusCode)
+			!Array.isArray(auth) &&
+			(status === 401 || (status === this.statusCode && this.statusCode))
 		) {
 			this.hasAuth = false;
-			this.parseAuth(resp.headers.get("www-authenticate"));
+			this.parseAuth(auth);
 			if (this.hasAuth) {
 				const respFinal = await fetch(url, {
 					...this.addAuth(url, options),
@@ -115,6 +126,7 @@ export default class DigestClient {
 				return respFinal;
 			}
 		} else this.digest.nc++;
+
 		return resp;
 	}
 

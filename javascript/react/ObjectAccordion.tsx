@@ -1,12 +1,28 @@
-export const ObjectAccordion = ({ data, bg }: { data: object; bg: string }) => {
-	const nonObjects: { [key: string]: any } = {};
+import {
+	Accordion,
+	AccordionButton,
+	AccordionIcon,
+	AccordionItem,
+	AccordionPanel,
+	Code,
+	Flex,
+	Heading,
+	Stack,
+	Text,
+} from "@chakra-ui/react";
+import React, { useMemo } from "react";
 
-	for (const [key, value] of Object.entries(data || {})) {
-		if (typeof value === "object") {
-			continue;
-		}
-		nonObjects[key] = value;
-	}
+export const ObjectAccordion = ({ data, bg }: { data: object; bg: string }) => {
+	const nonObjects = useMemo(() => {
+		return Object.entries(data || {}).reduce(
+			(acc, [k, v]) => {
+				if (typeof v === "object") return acc;
+				acc[k] = v;
+				return acc;
+			},
+			{} as { [key: string]: unknown },
+		);
+	}, [data]);
 
 	return (
 		<Accordion>
@@ -38,20 +54,19 @@ export const ObjectAccordion = ({ data, bg }: { data: object; bg: string }) => {
 				}
 				return (
 					<AccordionItem key={`object-accordion-${section}`}>
-						<h2>
-							<AccordionButton>
-								<Box
-									fontSize={"xl"}
-									textTransform={"uppercase"}
-									as="span"
-									flex="1"
-									textAlign="left"
-								>
-									{section}
-								</Box>
-								<AccordionIcon />
-							</AccordionButton>
-						</h2>
+						<AccordionButton>
+							<Heading
+								fontSize={"xl"}
+								textTransform={"uppercase"}
+								as="span"
+								flex="1"
+								textAlign="left"
+							>
+								{section}
+							</Heading>
+
+							<AccordionIcon />
+						</AccordionButton>
 						<AccordionPanel pb={4}>
 							<Stack>
 								{typeof sectionData === "object" ? (

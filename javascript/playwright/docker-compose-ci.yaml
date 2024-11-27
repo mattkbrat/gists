@@ -31,9 +31,7 @@ services:
       - ci
     env_file: $PWD/nextjs/.env.ci
     volumes:
-      - "$PWD/nextjs/.env.ci:/app/.env" 
-      - "$PWD/nextjs/tests/:/app/tests:ro" 
-      - "$PWD/tests/report:/app/playwright-report:rw" 
+      - "$PWD/playwright.config.ts:/app/playwright.config.ts:ro" 
       - "playwright:/app/test-results" 
     init: true
     stdin_open: true

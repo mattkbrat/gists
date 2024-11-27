@@ -1,0 +1,21 @@
+ARG PLAYWRIGHT_VERSION=1.47.0
+FROM "mcr.microsoft.com/playwright:v$PLAYWRIGHT_VERSION-noble" AS base
+ENV PNPM_HOME="/var/lib/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+ENV CI=true
+RUN corepack enable
+
+# Install dependencies only when needed
+FROM base AS deps
+WORKDIR /app
+
+# Install dependencies based on the preferred package manager
+COPY package.json pnpm-lock.yaml* ./
+COPY prisma ./prisma
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+
+# Rebuild the source code only when needed
+FROM base AS tester
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .

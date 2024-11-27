@@ -1,0 +1,49 @@
+services:
+  nextjs:
+    container_name: nextjs-ci
+    env_file:
+      - $PWD/nextjs/.env.ci
+      - $PWD/.env
+    build: 
+      context: .
+      dockerfile: Dockerfile.nextjs
+    restart: unless-stopped
+    networks:
+      - clientnet
+      - ci
+  playwright:
+    command: "npx -y playwright@1.49.0 test"
+    container_name: playwright
+    build:
+      context: . 
+      dockerfile: Dockerfile.e2e
+    develop:
+      watch:
+        - action: rebuild
+          path: $PWD/nextjs/package.json
+        - action: sync
+          path: $PWD/nextjs/tests/e2e
+          target: /app/tests/e2e
+          ignore:
+            - node_modules/
+    networks:
+      - clientnet
+      - ci
+    env_file: $PWD/nextjs/.env.ci
+    volumes:
+      - "$PWD/nextjs/.env.ci:/app/.env" 
+      - "$PWD/nextjs/tests/:/app/tests:ro" 
+      - "$PWD/tests/report:/app/playwright-report:rw" 
+      - "playwright:/app/test-results" 
+    init: true
+    stdin_open: true
+    tty: true
+
+volumes:
+  playwright:
+
+networks:
+  ci:
+  clientnet:
+    name: clientnet
+    external: true

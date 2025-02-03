@@ -11,14 +11,16 @@
 	"license": "ISC",
 	"packageManager": "pnpm@9.12.1+sha512.e5a7e52a4183a02d5931057f7a0dbff9d5e9ce3161e33fa68ae392125b79282a8a8a470a51dfc8a0ed86221442eb2fb57019b0990ed24fab519bf0e1bc5ccfc4",
 	"devDependencies": {
+		"@playwright/test": "^1.49.0",
 		"@types/node": "^22.9.0",
 		"@types/react": "^18.3.12",
-		"typescript": "^5.6.3",
-		"@playwright/test": "^1.49.0",
-		"dotenv": "^16.4.5"
+		"dotenv": "^16.4.5",
+		"typescript": "^5.6.3"
 	},
 	"dependencies": {
 		"@chakra-ui/react": "^2.10.4",
-		"react": "^18.3.1"
+		"clsx": "^2.1.1",
+		"react": "^18.3.1",
+		"tailwind-merge": "^3.0.1"
 	}
 }

@@ -1,5 +1,11 @@
 import { env } from "bun";
 
+type PostgresContainer = {
+  container: string;
+  user: string;
+  database?: string;
+};
+
 const toBackup = Object.entries(env).filter(([k]) => k.startsWith("BAK"))
 
 const { containers } = toBackup.filter(([k]) => k.startsWith("BAK_POSTGRES")).reduce((acc, [k, v]) => {
@@ -36,3 +42,11 @@ const { containers } = toBackup.filter(([k]) => k.startsWith("BAK_POSTGRES")).re
   return acc
 
 }, { lastIndex: 0, containers: [] as PostgresContainer[] })
+
+/**
+* Env should look like
+* BAK_POSTGRES_1_CONTAINER="cameras-postgres-dev"
+* BAK_POSTGRES_1_USER="postgres"
+* BAK_POSTGRES_1_DATABASE="postgres"
+* ...
+**/
